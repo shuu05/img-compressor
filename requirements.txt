@@ -1,8 +1,1 @@
-GitPython==3.1.18
-glob2 @ file:///home/linux1/recipes/ci/glob2_1610991677669/work
-imagesize @ file:///home/ktietz/src/ci/imagesize_1611921604382/work
-numpy @ file:///C:/ci/numpy_and_numpy_base_1620833114945/work
-pandas==1.2.5
-python-resize-image==1.1.19
-python-utils==2.5.6
 streamlit==0.85.0
