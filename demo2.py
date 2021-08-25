@@ -7,7 +7,7 @@ import glob
 import pandas as pd
 import os
 import sys
-import cv2
+from .cv2 import *
 
 
 st.write("Img Compressor")
