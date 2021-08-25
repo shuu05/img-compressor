@@ -33,8 +33,7 @@ def img_comp(file):
 
 def opn_cv(file):
     img = cv2.imread(file, cv2.IMREAD_UNCHANGED)
-    new = cv2.imwrite('compress_img.png', img,  [
-                      cv2.IMWRITE_PNG_COMPRESSION, 9])
+    new = cv2.imwrite('compress_img1.png', img,  [int(cv2.IMWRITE_PNG_COMPRESSION), 9])
     return new
 
 
