@@ -1,0 +1,168 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>compressor js | Adminspress.com</title></title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100i,300,300i,400,400i,700|Open+Sans:300,300i,400,400i,600,600i,700|Roboto:100,100i,300,300i,400,400i,500,500i" rel="stylesheet">
+    <meta property="og:title" content="compressor js" />
+    <meta property="og:description" content="This Javascript image compressor built using browser image compressor js Javascript library. " />
+    <meta property="og:image" content="https://www.adminspress.com/elem_thumb/elements_thumb28pQowXo.jpeg" />
+    <meta name="twitter:title" content="compressor js" />
+    <meta name="twitter:site" content="@Adminspress" />
+    <meta name="twitter:image" content="https://www.adminspress.com/elem_thumb/elements_thumb28pQowXo.jpeg" />
+    
+
+     <link href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>    
+  <style>
+   body{
+    background-color:rgb(196, 95, 13);
+}
+.res-img img,.adp-img img{
+    width:100%;
+    margin:2rem auto;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+    padding: 8px;
+}
+
+   </style>
+</head>
+<body >
+    
+
+    <section class="mt-5">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-6 cil-xs-12">
+                        <form class="adp-form">
+                          <div class="form-row align-items-center">
+                            <label>Choose Image</label>
+                            <div class="input-group mb-2">
+                               <div class="input-group-prepend">
+                                  <div class="input-group-text"><i class="fas fa-images"></i></div>
+                                </div>
+                              <input type="file" class="btn btn-light btn-sm form-control" id="file" placeholder="Jane Doe" accept="image/*">
+                            </div>
+                            </div>
+                            <input type="checkbox" id="strict" checked> <label>Strict </label>&nbsp;
+                            <input type="checkbox" id="checkOrientation"> <label>checkOrientation </label> &nbsp;&nbsp;
+                            <label>Quality </label>
+                        <select class="quality form-control" style="display:inline;width:40%">
+                            <option value="0">0</option> <option value="0.1">0.1</option>
+                            <option value="0.2">0.2</option> <option value="0.3">0.3</option>
+                            <option value="0.4">0.4</option> <option value="0.5">0.5</option>
+                            <option selected value="0.6">0.6</option> <option value="0.7">0.7</option>
+                            <option value="0.8">0.8</option> <option value="0.9">0.9</option>
+                            <option value="1">1</option> <option value="">NaN</option>
+
+                        </select>
+                        </form>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6 cil-xs-12">
+                    <div class="adp-img"></div>
+                    <h4>Before Compress</h4>
+                    <div class="d-flex">
+                        <span style="width:50%"><b>Name</b></span>
+                        <span id="name"></span>
+                    </div>
+                    <div class="d-flex">
+                        <span style="width:50%"><b>Size</b></span>
+                        <span id="size"></span>
+                    </div>
+                    <div class="d-flex">
+                        <span><b>Last Modified</b></span> 
+                        <span id="lastModifiedDate"></span>
+                    </div>
+                    </div>
+                    <div class="col-md-6 cil-xs-12">
+                    <div class="res-img" style="background-color: rgba(255, 255, 255, 0.1) !important;"> </div>
+                    <h4>After Compress</h4>
+                    <div class="d-flex">
+                        <span style="width:50%"><b>Size</b></span>
+                        <span id="asize"></span>
+                    </div>
+                    <div class="d-flex">
+                        <span><b>Last Modified</b></span> 
+                        <span id="alastModifiedDate"></span>
+                    </div>
+                    <div class="d-flex">
+                        <span style="width:50%"><b>Saving</b ></span> 
+                        <span class='text-success' id="saving"></span>
+                    </div>
+                    <a href="#" class="btn btn-primary img" id="download" style="display:none;opacity:0.5 !important;">Download</a>
+                      <div class="alert alert-danger" style="display:none;opacity:0.5;background-Color:'transparent';"></div>
+                      
+                              
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>    
+
+
+ 
+   <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script type='text/javascript' src='https://cdn.jsdelivr.net/npm/compressorjs'></script></body>
+<!--<script src="js/jquery-3.3.1.min.js"></script>-->
+<!--<script src="js/bootstrap.min.js"></script>-->
+<script>
+$("#file").change(function(event) {
+  const { size, lastModifiedDate, name } = $(this)[0].files[0];
+  $("#size").text(size / 1024 / 1024 + "MB");
+  $("#lastModifiedDate").text(lastModifiedDate);
+  $("#name").text(name);
+  gen_img(event.target.files[0], "adp-img");
+  handleImageUpload(event,size);
+});
+function _(x){
+  return  document.getElementById(x)
+}
+async function handleImageUpload(event,size) {
+    const file = event.target.files[0];
+
+    if (!file) {
+      return;
+    }
+    const compressor = new Compressor(file, {
+    strict:_('strict').checked,
+     quality: parseFloat($('.quality').val()),
+    checkOrientation: _('checkOrientation').checked,
+      success(result) {
+        $("#asize").text(`${result.size / 1024 / 1024} MB`);
+        $("#alastModifiedDate").text(Date());
+        
+        $("#saving").text( 100-result.size/size*100+'%');
+        let link = document.getElementById("download");
+        link.download = event.target.files[0].name;
+
+        link.href = URL.createObjectURL(result);
+        $(link).fadeIn();
+
+        gen_img(result, "res-img");
+       compressor.abort();
+      },
+      error(err) {
+        console.log(err.message);
+      }
+    });
+}
+function gen_img(blob, loc) {
+  var reader = new FileReader();
+  reader.readAsDataURL(blob);
+  reader.onloadend = function() {
+    var base64data = reader.result;
+    $("." + loc).html('<img src="' + base64data + '">' + 'style="background-Color:transparent;"');
+     console.log(base64data);
+  };
+}
+function download() {
+}
+   </script>
+</html>
